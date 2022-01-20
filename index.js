@@ -53,8 +53,10 @@ app.post("/email", (req, res) => {
   };
 
   transporter.sendMail(mailData, function (err, info) {
-    if (err) console.log(err);
-    else {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ message: "Ну удалось отправить сообщение" });
+    } else {
       res.status(200).send({ message: "Mail send", messageId: info.messageId });
     }
   });
